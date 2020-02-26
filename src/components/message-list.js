@@ -1,7 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Box, Button } from '@material-ui/core';
 import Api from '../api';
-import { ErrorList } from './ErrorList';
+import { MessageList2 } from './MessageList';
+import { Header } from './Header';
 
 class MessageList extends React.PureComponent {
   constructor(...args) {
@@ -54,21 +55,39 @@ class MessageList extends React.PureComponent {
     const priority1 = this.state.messages.filter(m => m.priority === 1);
     const priority2 = this.state.messages.filter(m => m.priority === 2);
     const priority3 = this.state.messages.filter(m => m.priority === 3);
-
+    const [Container, Buttons, ErrorLists] = [Box, Box, Box];
     console.log(priority1);
     return (
-      <div>
-        <Button variant="contained" onClick={this.handleClick}>
-          {isApiStarted ? 'Stop Messages' : 'Start Messages'}
-        </Button>
-        <Button variant="contained" onClick={this.handleClearClick}>
-          Clear
-        </Button>
-
-        <ErrorList title="Error Type 1" errors={priority1} />
-        <ErrorList title="Warning Type 2" errors={priority2} />
-        <ErrorList title="Info Type 3" errors={priority3} />
-      </div>
+      <Container
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Header />
+        <Buttons>
+          <Button variant="contained" onClick={this.handleClick}>
+            {isApiStarted ? 'Stop' : 'Start'}
+          </Button>
+          <Button variant="contained" onClick={this.handleClearClick}>
+            Clear
+          </Button>
+        </Buttons>
+        <ErrorLists
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'center',
+            margin: '10px',
+            marginTop: '30px'
+          }}
+        >
+          <MessageList2 priority='1' messages={priority1} />
+          <MessageList2 priority='2' messages={priority2} />
+          <MessageList2 priority='3' messages={priority3} />
+        </ErrorLists>
+      </Container>
     );
   }
 }
