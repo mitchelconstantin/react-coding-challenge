@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button } from '@material-ui/core';
 import Api from '../api';
-import { MessageList2 } from './MessageList';
+import { MessageColumn } from './MessageColumn';
 import { Header } from './Header';
 import { SimpleSnackbar } from './Snackbar';
 
@@ -66,7 +66,7 @@ class MessageList extends React.PureComponent {
     const isApiStarted = this.api.isStarted();
     const { errors, warnings, infos } = this.splitMessages();
     const snackbarMessage = errors.length ? errors[0].message : undefined;
-    const [Container, Buttons, ErrorLists] = [Box, Box, Box];
+    const [Container, Buttons, MessageColumns] = [Box, Box, Box];
     return (
       <Container
         style={{
@@ -80,10 +80,10 @@ class MessageList extends React.PureComponent {
           propNumErrors={errors.length}
           message={snackbarMessage}
         />
-        <Buttons margin={'10px'}>
+        <Buttons >
           <Button
             data-testid={'start-stop'}
-            style={{ backgroundColor: '#00dbbe' }}
+            style={{ backgroundColor: '#00dbbe', margin: '10px' }}
             variant="contained"
             onClick={this.handleClick}
           >
@@ -91,14 +91,14 @@ class MessageList extends React.PureComponent {
           </Button>
           <Button
             data-testid={'clear'}
-            style={{ backgroundColor: '#00dbbe' }}
+            style={{ backgroundColor: '#00dbbe', margin: '10px' }}
             variant="contained"
             onClick={this.handleClearClick}
           >
             Clear
           </Button>
         </Buttons>
-        <ErrorLists
+        <MessageColumns
           style={{
             display: 'flex',
             width: '100%',
@@ -107,22 +107,22 @@ class MessageList extends React.PureComponent {
             marginTop: '30px'
           }}
         >
-          <MessageList2
+          <MessageColumn
             priority="1"
             messages={errors}
             clearMessage={this.handleDeleteMessage}
           />
-          <MessageList2
+          <MessageColumn
             priority="2"
             messages={warnings}
             clearMessage={this.handleDeleteMessage}
           />
-          <MessageList2
+          <MessageColumn
             priority="3"
             messages={infos}
             clearMessage={this.handleDeleteMessage}
           />
-        </ErrorLists>
+        </MessageColumns>
       </Container>
     );
   }

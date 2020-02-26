@@ -47,7 +47,7 @@ const getValues = priority => {
     };
 };
 
-export const MessageList2 = ({ priority, messages, clearMessage }) => {
+export const MessageColumn = ({ priority, messages, clearMessage }) => {
   const classes = useStyles();
   const { title, name } = getValues(priority);
 
@@ -59,7 +59,11 @@ export const MessageList2 = ({ priority, messages, clearMessage }) => {
         <Card className={classes[name]} key={id}>
           <Typography>{message}</Typography>
           <CardActions className={classes.clearButton}>
-            <Button onClick={() => clearMessage(id)} size="small">
+            <Button
+              style={{ textTransform: 'none' }}
+              onClick={() => clearMessage(id)}
+              size="small"
+            >
               Clear
             </Button>
           </CardActions>
