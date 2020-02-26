@@ -44,7 +44,7 @@ const getValues = priority => {
     };
 };
 
-export const MessageList2 = ({ priority, messages }) => {
+export const MessageList2 = ({ priority, messages, clearMessage }) => {
   const classes = useStyles();
   const { title, name } = getValues(priority);
 
@@ -56,7 +56,7 @@ export const MessageList2 = ({ priority, messages }) => {
         <Card className={classes[name]} key={id}>
           <Typography>{message}</Typography>
           <CardActions>
-            <Button size="small">Clear</Button>
+            <Button onClick={()=> clearMessage(id)} size="small">Clear</Button>
           </CardActions>
         </Card>
       ))}

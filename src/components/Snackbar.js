@@ -1,44 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
+import {
+  Box,
+  Button,
+  Snackbar,
+  SnackbarContent,
+  Typography
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const SimpleSnackbar = ({ numErrors }) => {
+const useStyles = makeStyles({
+  error: {
+    backgroundColor: '#F56236',
+    color: 'black'
+  }
+});
+export const SimpleSnackbar = ({ propNumErrors }) => {
   const [open, setOpen] = useState(false);
+  const [numErrors, setNumErrors] = useState(propNumErrors);
+  const classes = useStyles();
 
   useEffect(() => {
-    console.log(numErrors);
-    if (numErrors > 0) setOpen(true);
-  }, [numErrors]);
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
+    if (propNumErrors > numErrors) setOpen(true);
+    setNumErrors(propNumErrors);
+  }, [propNumErrors]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
   return (
-    <div>
-      {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        open={open}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        message="Error"
-        action={
-          <Button color="secondary" size="small" onClick={handleClose}>
-            X
-          </Button>
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right'
+      }}
+      open={open}
+      autoHideDuration={2000}
+      onClose={handleClose}
+    >
+      <SnackbarContent
+        className={classes.error}
+        message={
+          <Box display='flex'>
+            <Button size="small" onClick={handleClose}>
+              X
+            </Button>
+            <Typography>Error</Typography>
+          </Box>
         }
       />
-    </div>
+    </Snackbar>
   );
 };

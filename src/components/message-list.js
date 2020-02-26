@@ -28,15 +28,9 @@ class MessageList extends React.PureComponent {
     if (message.priority === 1) {
       console.log('post error message');
     }
-    this.setState(
-      {
-        messages: [message, ...messages.slice()]
-      },
-      () => {
-        // Included to support initial direction. Please remove upon completion
-        // console.log(messages);
-      }
-    );
+    this.setState({
+      messages: [message, ...messages.slice()]
+    });
   }
 
   handleClick = () => {
@@ -53,6 +47,13 @@ class MessageList extends React.PureComponent {
     this.setState({ messages: [] });
   };
 
+  handleDeleteMessage = (id) => {
+    const { messages } = this.state;
+    const newMessages = messages.filter((m)=> m.id !== id);
+    this.setState({messages: newMessages});
+
+  }
+
   render() {
     const isApiStarted = this.api.isStarted();
     const priority1 = this.state.messages.filter(m => m.priority === 1);
@@ -68,7 +69,7 @@ class MessageList extends React.PureComponent {
         }}
       >
         <Header />
-        <SimpleSnackbar numErrors={priority1.length} />
+        <SimpleSnackbar propNumErrors={priority1.length} />
         <Buttons>
           <Button
             style={{ backgroundColor: '#00dbbe' }}
@@ -94,9 +95,21 @@ class MessageList extends React.PureComponent {
             marginTop: '30px'
           }}
         >
-          <MessageList2 priority="1" messages={priority1} />
-          <MessageList2 priority="2" messages={priority2} />
-          <MessageList2 priority="3" messages={priority3} />
+          <MessageList2
+            priority="1"
+            messages={priority1}
+            clearMessage={this.handleDeleteMessage}
+          />
+          <MessageList2
+            priority="2"
+            messages={priority2}
+            clearMessage={this.handleDeleteMessage}
+          />
+          <MessageList2
+            priority="3"
+            messages={priority3}
+            clearMessage={this.handleDeleteMessage}
+          />
         </ErrorLists>
       </Container>
     );
