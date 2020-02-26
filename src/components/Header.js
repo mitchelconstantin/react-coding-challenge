@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 export const Header = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.container}>
+    <Box data-testid='header' className={classes.container}>
       <Typography className={classes.title}>
         Help.com Coding Challenge
       </Typography>

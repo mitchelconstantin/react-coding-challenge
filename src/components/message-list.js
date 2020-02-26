@@ -44,19 +44,28 @@ class MessageList extends React.PureComponent {
     this.setState({ messages: [] });
   };
 
-  handleDeleteMessage = (id) => {
+  handleDeleteMessage = id => {
     const { messages } = this.state;
-    const newMessages = messages.filter((m)=> m.id !== id);
-    this.setState({messages: newMessages});
+    const newMessages = messages.filter(m => m.id !== id);
+    this.setState({ messages: newMessages });
+  };
 
-  }
+  splitMessages = () => {
+    const errors = [];
+    const warnings = [];
+    const infos = [];
+    this.state.messages.forEach(m => {
+      if (m.priority === 1) errors.push(m);
+      if (m.priority === 2) warnings.push(m);
+      if (m.priority === 3) infos.push(m);
+    });
+    return { errors, warnings, infos };
+  };
 
   render() {
     const isApiStarted = this.api.isStarted();
-    const priority1 = this.state.messages.filter(m => m.priority === 1);
-    const priority2 = this.state.messages.filter(m => m.priority === 2);
-    const priority3 = this.state.messages.filter(m => m.priority === 3);
-    const snackbarMessage = priority1.length ? priority1[0].message : undefined; 
+    const { errors, warnings, infos } = this.splitMessages();
+    const snackbarMessage = errors.length ? errors[0].message : undefined;
     const [Container, Buttons, ErrorLists] = [Box, Box, Box];
     return (
       <Container
@@ -68,11 +77,12 @@ class MessageList extends React.PureComponent {
       >
         <Header />
         <SimpleSnackbar
-          propNumErrors={priority1.length}
+          propNumErrors={errors.length}
           message={snackbarMessage}
         />
         <Buttons margin={'10px'}>
           <Button
+            data-testid={'start-stop'}
             style={{ backgroundColor: '#00dbbe' }}
             variant="contained"
             onClick={this.handleClick}
@@ -80,6 +90,7 @@ class MessageList extends React.PureComponent {
             {isApiStarted ? 'Stop' : 'Start'}
           </Button>
           <Button
+            data-testid={'clear'}
             style={{ backgroundColor: '#00dbbe' }}
             variant="contained"
             onClick={this.handleClearClick}
@@ -98,17 +109,17 @@ class MessageList extends React.PureComponent {
         >
           <MessageList2
             priority="1"
-            messages={priority1}
+            messages={errors}
             clearMessage={this.handleDeleteMessage}
           />
           <MessageList2
             priority="2"
-            messages={priority2}
+            messages={warnings}
             clearMessage={this.handleDeleteMessage}
           />
           <MessageList2
             priority="3"
-            messages={priority3}
+            messages={infos}
             clearMessage={this.handleDeleteMessage}
           />
         </ErrorLists>
