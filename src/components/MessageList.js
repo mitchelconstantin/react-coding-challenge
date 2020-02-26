@@ -23,7 +23,10 @@ const useStyles = makeStyles({
     backgroundColor: '#88FCA3',
     margin: '5px',
     height: '50px'
-  }
+  },
+  clearButton: {
+    marginLeft: 'auto'
+  },
 });
 
 const getValues = priority => {
@@ -55,8 +58,14 @@ export const MessageList2 = ({ priority, messages, clearMessage }) => {
       {messages.map(({ message, id }) => (
         <Card className={classes[name]} key={id}>
           <Typography>{message}</Typography>
-          <CardActions>
-            <Button onClick={()=> clearMessage(id)} size="small">Clear</Button>
+          <CardActions
+          className={classes.clearButton}>
+            <Button
+              onClick={() => clearMessage(id)}
+              size="small"
+            >
+              Clear
+            </Button>
           </CardActions>
         </Card>
       ))}
