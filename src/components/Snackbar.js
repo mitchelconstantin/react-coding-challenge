@@ -35,7 +35,7 @@ export const SimpleSnackbar = ({ propNumErrors }) => {
     <Snackbar
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'right'
+        horizontal: 'center'
       }}
       open={open}
       autoHideDuration={2000}

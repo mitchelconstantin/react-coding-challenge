@@ -4,12 +4,13 @@ import { Box, Divider, Typography } from '@material-ui/core/';
 
 const useStyles = makeStyles({
   container: {
+    display: 'flex',
+    flexDirection: 'column',
     marginRight: 'auto',
-    width: '100%'
-    // display: 'flex'
+    width: '100%',
   },
   title: {
-    margin: '10px'
+    margin: '20px',
   }
 });
 

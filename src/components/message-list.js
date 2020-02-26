@@ -25,9 +25,6 @@ class MessageList extends React.PureComponent {
 
   messageCallback(message) {
     const { messages } = this.state;
-    if (message.priority === 1) {
-      console.log('post error message');
-    }
     this.setState({
       messages: [message, ...messages.slice()]
     });
@@ -70,7 +67,9 @@ class MessageList extends React.PureComponent {
       >
         <Header />
         <SimpleSnackbar propNumErrors={priority1.length} />
-        <Buttons>
+        <Buttons
+        margin={'10px'}
+        >
           <Button
             style={{ backgroundColor: '#00dbbe' }}
             variant="contained"
