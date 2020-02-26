@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     color: 'black'
   }
 });
-export const SimpleSnackbar = ({ propNumErrors }) => {
+export const SimpleSnackbar = ({ propNumErrors, message }) => {
   const [open, setOpen] = useState(false);
   const [numErrors, setNumErrors] = useState(propNumErrors);
   const classes = useStyles();
@@ -48,7 +48,7 @@ export const SimpleSnackbar = ({ propNumErrors }) => {
             <Button size="small" onClick={handleClose}>
               X
             </Button>
-            <Typography>Error</Typography>
+            <Typography>{message}</Typography>
           </Box>
         }
       />

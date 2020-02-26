@@ -56,6 +56,7 @@ class MessageList extends React.PureComponent {
     const priority1 = this.state.messages.filter(m => m.priority === 1);
     const priority2 = this.state.messages.filter(m => m.priority === 2);
     const priority3 = this.state.messages.filter(m => m.priority === 3);
+    const snackbarMessage = priority1.length ? priority1[0].message : undefined; 
     const [Container, Buttons, ErrorLists] = [Box, Box, Box];
     return (
       <Container
@@ -66,10 +67,11 @@ class MessageList extends React.PureComponent {
         }}
       >
         <Header />
-        <SimpleSnackbar propNumErrors={priority1.length} />
-        <Buttons
-        margin={'10px'}
-        >
+        <SimpleSnackbar
+          propNumErrors={priority1.length}
+          message={snackbarMessage}
+        />
+        <Buttons margin={'10px'}>
           <Button
             style={{ backgroundColor: '#00dbbe' }}
             variant="contained"
