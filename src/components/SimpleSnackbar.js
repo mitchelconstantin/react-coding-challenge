@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     color: 'black'
   }
 });
+
 export const SimpleSnackbar = props => {
   const [open, setOpen] = useState(false);
   const [numErrors, setNumErrors] = useState(props.numErrors);

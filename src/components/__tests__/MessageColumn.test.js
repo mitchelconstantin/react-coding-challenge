@@ -12,6 +12,7 @@ const mockMessages = [
     id: '278'
   }
 ];
+
 const mockMessagesWithPriority = priority =>
   mockMessages.map(m => ({ ...m, priority }));
 

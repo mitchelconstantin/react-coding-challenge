@@ -17,8 +17,4 @@ describe('message-list', () => {
     await findByTestId('warning');
     await findByTestId('error');
   });
-
-    it('shows a snackbar with the an error when one comes in via the API', async () => {
-
-    });
 });
