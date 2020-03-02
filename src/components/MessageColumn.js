@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Card, CardActions, Typography } from '@material-ui/core/';
+import { Box, Button, Card, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

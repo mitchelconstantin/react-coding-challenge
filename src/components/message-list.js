@@ -77,7 +77,7 @@ class MessageList extends React.PureComponent {
       >
         <Header />
         <SimpleSnackbar
-          propNumErrors={errors.length}
+          numErrors={errors.length}
           message={snackbarMessage}
         />
         <Buttons >

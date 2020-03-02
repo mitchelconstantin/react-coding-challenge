@@ -12,17 +12,18 @@ const useStyles = makeStyles({
   error: {
     backgroundColor: '#F56236',
     color: 'black'
-  }
+  },
 });
-export const SimpleSnackbar = ({ propNumErrors, message }) => {
+export const SimpleSnackbar = (props) => {
   const [open, setOpen] = useState(false);
-  const [numErrors, setNumErrors] = useState(propNumErrors);
+  const [numErrors, setNumErrors] = useState(props.numErrors);
   const classes = useStyles();
 
   useEffect(() => {
-    if (propNumErrors > numErrors) setOpen(true);
-    setNumErrors(propNumErrors);
-  }, [propNumErrors]);
+    if (props.numErrors === numErrors) return;
+    if (props.numErrors > numErrors) setOpen(true);
+    setNumErrors(props.numErrors);
+  }, [props.numErrors, numErrors]);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -45,10 +46,10 @@ export const SimpleSnackbar = ({ propNumErrors, message }) => {
         className={classes.error}
         message={
           <Box display='flex'>
-            <Button size="small" onClick={handleClose}>
+            <Button  className={classes.button}size="small" onClick={handleClose}>
               X
             </Button>
-            <Typography>{message}</Typography>
+            <Typography>{props.message}</Typography>
           </Box>
         }
       />
