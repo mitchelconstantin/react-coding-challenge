@@ -30,7 +30,7 @@ class MessageList extends React.PureComponent {
     });
   }
 
-  handleClick = () => {
+  handleStartStop = () => {
     const isApiStarted = this.api.isStarted();
     if (isApiStarted) {
       this.api.stop();
@@ -40,7 +40,7 @@ class MessageList extends React.PureComponent {
     this.forceUpdate();
   };
 
-  handleClearClick = () => {
+  handleClearMessages = () => {
     this.setState({ messages: [] });
   };
 
@@ -85,7 +85,7 @@ class MessageList extends React.PureComponent {
             data-testid={'start-stop'}
             style={{ backgroundColor: '#00dbbe', margin: '10px' }}
             variant="contained"
-            onClick={this.handleClick}
+            onClick={this.handleStartStop}
           >
             {isApiStarted ? 'Stop' : 'Start'}
           </Button>
@@ -93,7 +93,7 @@ class MessageList extends React.PureComponent {
             data-testid={'clear'}
             style={{ backgroundColor: '#00dbbe', margin: '10px' }}
             variant="contained"
-            onClick={this.handleClearClick}
+            onClick={this.handleClearMessages}
           >
             Clear
           </Button>
