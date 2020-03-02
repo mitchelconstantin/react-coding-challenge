@@ -17,10 +17,13 @@ const mockMessagesWithPriority = priority =>
 
 describe('MessageColumn', () => {
   it('renders provided messages', () => {
+    const priority = '1';
+    const messages = mockMessagesWithPriority(priority);
+    
     const { getByText } = render(
       <MessageColumn
-        priority="1"
-        messages={mockMessagesWithPriority('1')}
+        priority={priority}
+        messages={messages}
         clearMessage={jest.fn()}
       />
     );
@@ -29,11 +32,14 @@ describe('MessageColumn', () => {
   });
 
   it('calls provided clearMessage with messageId when clicked', () => {
+    const priority = '1';
+    const messages = mockMessagesWithPriority(priority);
     const mockClearMessage = jest.fn();
+
     const { getAllByText } = render(
       <MessageColumn
-        priority="1"
-        messages={mockMessagesWithPriority('1')}
+        priority={priority}
+        messages={messages}
         clearMessage={mockClearMessage}
       />
     );
@@ -43,11 +49,13 @@ describe('MessageColumn', () => {
 
   it('applies proper backgroundColor for errors (priority 1)', () => {
     const priority = '1';
+    const messages = mockMessagesWithPriority(priority);
     const { backgroundColor } = getValuesByPriority(priority);
+
     const { getByTestId } = render(
       <MessageColumn
         priority={priority}
-        messages={mockMessagesWithPriority(priority)}
+        messages={messages}
         clearMessage={jest.fn()}
       />
     );
@@ -56,11 +64,13 @@ describe('MessageColumn', () => {
 
   it('applies proper backgroundColor for warnings (priority 2)', () => {
     const priority = '2';
+    const messages = mockMessagesWithPriority(priority);
     const { backgroundColor } = getValuesByPriority(priority);
+
     const { getByTestId } = render(
       <MessageColumn
         priority={priority}
-        messages={mockMessagesWithPriority(priority)}
+        messages={messages}
         clearMessage={jest.fn()}
       />
     );
@@ -69,11 +79,13 @@ describe('MessageColumn', () => {
 
   it('applies proper backgroundColor for info (priority 3)', () => {
     const priority = '3';
+    const messages = mockMessagesWithPriority(priority);
     const { backgroundColor } = getValuesByPriority(priority);
+
     const { getByTestId } = render(
       <MessageColumn
         priority={priority}
-        messages={mockMessagesWithPriority(priority)}
+        messages={messages}
         clearMessage={jest.fn()}
       />
     );

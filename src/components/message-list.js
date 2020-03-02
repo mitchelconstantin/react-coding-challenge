@@ -3,7 +3,7 @@ import { Box, Button } from '@material-ui/core';
 import Api from '../api';
 import { MessageColumn } from './MessageColumn';
 import { Header } from './Header';
-import { SimpleSnackbar } from './Snackbar';
+import { SimpleSnackbar } from './SimpleSnackbar';
 
 class MessageList extends React.PureComponent {
   constructor(...args) {
