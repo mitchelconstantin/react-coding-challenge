@@ -1,24 +1,34 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { SimpleSnackbar } from '../SimpleSnackbar';
 
 describe('message-list', () => {
-  it('is a blank slate to write tests in', () => {
-    const { container } = render(
-      <SimpleSnackbar numErrors={0} message={undefined} />
+  it('renders message when numErrors increases', () => {
+    const { queryByText, rerender } = render(
+      <SimpleSnackbar numErrors={10} message={'message'} />
     );
-    expect(container).not.toBeVisible();
-    
+    expect(queryByText('message')).toBeFalsy();
+    rerender(<SimpleSnackbar numErrors={11} message={'new message'} />);
+    expect(queryByText('new message')).toBeVisible();
+  });
+
+
+  it('does not render message when numErrors decreases ', () => {
+    const { queryByText, rerender } = render(
+      <SimpleSnackbar numErrors={10} message={'message'} />
+    );
+    expect(queryByText('message')).toBeFalsy();
+    rerender(<SimpleSnackbar numErrors={9} message={'new message'} />);
+    expect(queryByText('new message')).toBeFalsy();
+  });
+
+  it('dismisses message clicking X', () => {
+    const { queryByText, getByText, rerender } = render(
+      <SimpleSnackbar numErrors={10} message={'message'} />
+    );
+    rerender(<SimpleSnackbar numErrors={11} message={'new message'} />);
+    expect(queryByText('new message')).toBeVisible();
+    fireEvent.click(getByText('X'));
+    expect(queryByText('new message')).not.toBeVisible();
   });
 });
-
-// test('calling render with the same component on the same container does not remount', () => {
-//   const { getByTestId, rerender } = render(<NumberDisplay number={1} />);
-//   expect(getByTestId('number-display').textContent).toBe('1');
-
-//   // re-render the same component with different props
-//   rerender(<NumberDisplay number={2} />);
-//   expect(getByTestId('number-display').textContent).toBe('2');
-
-//   expect(getByTestId('instance-id').textContent).toBe('1');
-// });
