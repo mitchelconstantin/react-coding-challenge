@@ -12,9 +12,9 @@ const useStyles = makeStyles({
   error: {
     backgroundColor: '#F56236',
     color: 'black'
-  },
+  }
 });
-export const SimpleSnackbar = (props) => {
+export const SimpleSnackbar = props => {
   const [open, setOpen] = useState(false);
   const [numErrors, setNumErrors] = useState(props.numErrors);
   const classes = useStyles();
@@ -45,8 +45,14 @@ export const SimpleSnackbar = (props) => {
       <SnackbarContent
         className={classes.error}
         message={
-          <Box display='flex'>
-            <Button  className={classes.button}size="small" onClick={handleClose}>
+          <Box display="flex">
+            <Button
+              className={classes.button}
+              size="small"
+              onClick={handleClose}
+            >
+              {/* would use The Close icon from @material-ui/icons in prod environment, 
+              but didn't want to add an npm package to this demo app */}
               X
             </Button>
             <Typography>{props.message}</Typography>
