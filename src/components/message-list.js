@@ -67,6 +67,7 @@ class MessageList extends React.PureComponent {
     const { errors, warnings, infos } = this.splitMessages();
     const snackbarMessage = errors.length ? errors[0].message : undefined;
     const [Container, Buttons, MessageColumns] = [Box, Box, Box];
+    console.log(errors);
     return (
       <Container
         style={{
