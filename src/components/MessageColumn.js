@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 });
 
-const getValuesByPriority = priority => {
+export const getValuesByPriority = priority => {
   if (priority === '1')
     return {
       title: 'Error Type 1',

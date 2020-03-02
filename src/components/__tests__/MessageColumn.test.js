@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { MessageColumn } from '../MessageColumn';
+import { MessageColumn, getValuesByPriority } from '../MessageColumn';
 
 const mockMessages = [
   {
-    message: 'error message 1',
+    message: 'message 1',
     id: '4ee3'
   },
   {
-    message: 'error message 2',
+    message: 'message 2',
     id: '278'
   }
 ];
@@ -24,11 +24,11 @@ describe('MessageColumn', () => {
         clearMessage={jest.fn()}
       />
     );
-    expect(getByText('error message 1')).toBeVisible();
-    expect(getByText('error message 2')).toBeVisible();
+    expect(getByText('message 1')).toBeVisible();
+    expect(getByText('message 2')).toBeVisible();
   });
 
-  it('renders calls provided clearMessage with messageId when clicked', () => {
+  it('calls provided clearMessage with messageId when clicked', () => {
     const mockClearMessage = jest.fn();
     const { getAllByText } = render(
       <MessageColumn
@@ -41,42 +41,42 @@ describe('MessageColumn', () => {
     expect(mockClearMessage).toHaveBeenCalledWith('4ee3');
   });
 
-  it('renders error cards with proper background color', () => {
+  it('applies proper backgroundColor for errors (priority 1)', () => {
+    const priority = '1';
+    const { backgroundColor } = getValuesByPriority(priority);
     const { getByTestId } = render(
       <MessageColumn
-        priority="1"
-        messages={mockMessagesWithPriority('1')}
+        priority={priority}
+        messages={mockMessagesWithPriority(priority)}
         clearMessage={jest.fn()}
       />
     );
-    expect(getByTestId('message-4ee3')).toHaveStyle({
-      backgroundColor: '#F56236'
-    });
+    expect(getByTestId('message-4ee3')).toHaveStyle({ backgroundColor });
   });
 
-  it('renders warning cards with proper background color', () => {
+  it('applies proper backgroundColor for warnings (priority 2)', () => {
+    const priority = '2';
+    const { backgroundColor } = getValuesByPriority(priority);
     const { getByTestId } = render(
       <MessageColumn
-        priority="2"
-        messages={mockMessagesWithPriority('2')}
+        priority={priority}
+        messages={mockMessagesWithPriority(priority)}
         clearMessage={jest.fn()}
       />
     );
-    expect(getByTestId('message-4ee3')).toHaveStyle({
-      backgroundColor: '#FCE788'
-    });
+    expect(getByTestId('message-4ee3')).toHaveStyle({ backgroundColor });
   });
 
-  it('renders info cards with proper background color', () => {
+  it('applies proper backgroundColor for info (priority 3)', () => {
+    const priority = '3';
+    const { backgroundColor } = getValuesByPriority(priority);
     const { getByTestId } = render(
       <MessageColumn
-        priority="3"
-        messages={mockMessagesWithPriority('3')}
+        priority={priority}
+        messages={mockMessagesWithPriority(priority)}
         clearMessage={jest.fn()}
       />
     );
-    expect(getByTestId('message-4ee3')).toHaveStyle({
-      backgroundColor: '#88FCA3'
-    });
+    expect(getByTestId('message-4ee3')).toHaveStyle({ backgroundColor });
   });
 });
