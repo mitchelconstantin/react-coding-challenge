@@ -50,7 +50,7 @@ export const MessageColumn = ({ priority, messages, clearMessage }) => {
       <Typography>{title}</Typography>
       <Typography color='textSecondary' >Count {messages.length}</Typography>
       {messages.map(({ message, id }) => (
-        <Card className={classes.card} style={{backgroundColor}} key={id}>
+        <Card data-testid={`message-${id}`} className={classes.card} style={{backgroundColor}} key={id}>
           <Typography className={classes.message}>{message}</Typography>
           <Button
             className={classes.clearButton}
